@@ -29,6 +29,8 @@ public class WebConfig implements WebMvcConfigurer {
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/pages/");
         templateResolver.setSuffix(".html");
+
+        templateResolver.setCharacterEncoding("UTF-8"); // Установка кодировки UTF-8
         return templateResolver;
     }
 
@@ -36,7 +38,7 @@ public class WebConfig implements WebMvcConfigurer {
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.setEnableSpringELCompiler(true);
+        templateEngine.setEnableSpringELCompiler(true);;
         return templateEngine;
     }
 
@@ -46,5 +48,6 @@ public class WebConfig implements WebMvcConfigurer {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
         registry.viewResolver(resolver);
+//        resolver.se
     }
 }
