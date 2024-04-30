@@ -9,12 +9,32 @@
         <H3>page: Show car</H3>
         <br/>
 
-        <p th:text="'id = ' + ${showCar.getId()}">VALUE</p>
-        <p th:text="'model = ' + ${showCar.getModel()}">VALUE</p>
-        <p th:text="'series = ' + ${showCar.getSeries()}">VALUE</p>
-        <p th:text="'color = ' + ${showCar.getColor()}">VALUE</p>
+<!--        <p th:text="'id = ' + ${showCar.getId()}">VALUE</p>-->
+<!--        <p th:text="'model = ' + ${showCar.getModel()}">VALUE</p>-->
+<!--        <p th:text="'series = ' + ${showCar.getSeries()}">VALUE</p>-->
+<!--        <p th:text="'color = ' + ${showCar.getColor()}">VALUE</p>-->
+<!--        <br/> <hr/> <br/>-->
 
-        <br/> <hr/> <br/>
+        <table border="5">
+            <tr>
+                <td style = "width: 80px; background-color: lightcyan;">id</td>
+                <td style = "width: 400px; text-align: center;" th:text="${showCar.getId()}">VALUE</td>
+            </tr>
+            <tr>
+                <td style = "background-color: lightcyan;">model </td>
+                <td style = "text-align: center;" th:text = "${showCar.getModel()}">VALUE</td>
+            </tr>
+            <tr>
+                <td style = "background-color: lightcyan;">series</td>
+                <td style = "text-align: center;" th:text = "${showCar.getSeries()}">VALUE</td>
+            </tr>
+            <tr>
+                <td style = "background-color: lightcyan;">color</td>
+                <td style = "text-align: center;" th:text = "${showCar.getColor()}">VALUE</td>
+            </tr>
+        </table>
+
+        <br/> <br/> <hr/> <br/>
 
         <form th:method="GET" th:action="@{/cars/edit/{id}(id=${showCar.getId()})}">
             <input type="submit" value="Edit"/>

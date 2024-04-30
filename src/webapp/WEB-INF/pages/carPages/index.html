@@ -16,22 +16,22 @@
 <!--             + ${itemCar.getSeries()} + ' '-->
 <!--             + ${itemCar.getColor()}">car</a>-->
 <!--    </div>-->
-
-
+<!--    <br/><br/><br/>-->
 
     <table border="2">
       <tr>
-        <th style="width: 30px;">id</th>
-        <th style="width: 200px;">model</th>
-        <th style="width: 100px;">series</th>
-        <th style="width: 25%;">color</th>
-        <th style="width: 20%;">action</th>
+        <th style="width: 40px; background-color: lightcyan;">id</th>
+        <th style="width: 150px; background-color: lightcyan;">model</th>
+        <th style="width: 100px; background-color: lightcyan;">series</th>
+        <th style="width: 25%; background-color: lightcyan;">color</th>
+        <th style="width: 110px; background-color: lightcyan;">action</th>
       </tr>
       <tr th:each="itemCar : ${arrCars}">
-        <td th:utext="${itemCar.getId()}">id</td>
+        <td style="text-align: center;" th:utext="${itemCar.getId()}">id</td>
         <td th:utext="${itemCar.getModel()}">model</td>
-        <td th:utext="${itemCar.getSeries()}">series</td>
+        <td style="text-align: center;" th:utext="${itemCar.getSeries()}">series</td>
         <td th:utext="${itemCar.getColor()}">color</td>
+        <td style="text-align: center;"> <em> <a th:href="@{/cars/{id}(id=${itemCar.getId()})}">View details</a> </em> </td>
       </tr>
     </table>
 

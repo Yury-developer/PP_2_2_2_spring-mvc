@@ -24,14 +24,14 @@ public class CarController {
 
     @RequestMapping(value = "/", method = RequestMethod.HEAD) // HEAD - Возвращает только заголовки ответа для ресурса с указанным идентификатором, без тела ответа.
     public String ping() {
-        System.out.println("\nCarController: ping");
+        System.out.println("\nметод CarController: ping");
         return carService.ping();
     }
 
     // РЕДАКТИРОВАТЬ   ***** ***** ***** РАБОТАЕТ ***** ***** *****
     @GetMapping(value = "/edit/{id}") // будет возвращать страницу редактирования Car
     public String edit(Model model, @PathVariable("id") Integer id) {
-        System.out.println("\nCarController: edit");
+        System.out.println("\nметод CarController: edit");
 
         model.addAttribute("carEdit", carService.get(id));        // Берем Car с номером "id", Засовываем в модель и выплевываем в форму для редактирования
         return "carPages/edit";
@@ -40,7 +40,7 @@ public class CarController {
     // GET - Получает ресурс по его идентификатору.   // согласно условию задачи
     @GetMapping(value = "/")
     public String get(@RequestParam(required = false) Integer count, Model model) {
-        System.out.println("\nCarController: get"); // выдаю список машин в соответствии с условием
+        System.out.println("\nметод CarController: get"); // выдаю список машин в соответствии с условием
 
         model.addAttribute("arrCars", carService.getSeveral(count != null ? count : 0));
         return "carPages/index";
@@ -51,7 +51,7 @@ public class CarController {
     // ***** ***** ***** РАБОТАЕТ ***** ***** *****
     @GetMapping(value = "/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
-        System.out.println("\nCarController: show");
+        System.out.println("\nметод CarController: show");
 
         model.addAttribute("showCar", carService.get(id));
         return "carPages/show";
@@ -69,7 +69,7 @@ public class CarController {
     // ***** ***** ***** РАБОТАЕТ ***** ***** *****
     @PostMapping(value = "/")
     public String add(@ModelAttribute("newCar") Car car) {
-        System.out.println("\nCarController: add");
+        System.out.println("\nметод CarController: add");
 
         carService.save(car);
         return "redirect:/cars/";
