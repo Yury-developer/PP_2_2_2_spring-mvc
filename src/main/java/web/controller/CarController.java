@@ -38,9 +38,9 @@ public class CarController {
     }
 
     // GET - Получает ресурс по его идентификатору.   // согласно условию задачи
-    @GetMapping(value = "/")
-    public String get(@RequestParam(required = false) Integer count, Model model) {
-        System.out.println("\nметод CarController: get"); // выдаю список машин в соответствии с условием
+    @GetMapping
+    public String get(@RequestParam(name = "count", required = false, defaultValue = "0") Integer count, Model model) {
+        System.out.println("\nметод CarController: get; count = " + count); // выдаю список машин в соответствии с условием
 
         model.addAttribute("arrCars", carService.getSeveral(count != null ? count : 0));
         return "carPages/index";
