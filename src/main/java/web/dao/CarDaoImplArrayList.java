@@ -9,30 +9,20 @@ import java.util.List;
 
 
 @Component
-public class CarDaoImpl implements CarDao {
+public class CarDaoImplArrayList implements CarDao, Constants {
 
     private List<Car> carList;
 
 
-    private int size;
-
-    public CarDaoImpl() {
-        carList = new ArrayList<>();
-        this.save(new Car("Mers МЭРС ммм", 111, "red красный"));
-        this.save(new Car("Lexus ЛЕКСУС", 222, "orange"));
-        this.save(new Car("BMW БМВ", 333, "green"));
-        this.save(new Car("Lada ЛАДА", 444, "blue"));
-        this.save(new Car("Oka ОКА", 555, "violet"));
-        carList.stream().forEach(System.out::println);
+    public CarDaoImplArrayList() {
+        fillTestData();
+        printCars(carList.toArray(Car[]::new));
     }
 
 
     @Override
     public boolean save(Car car) {
         boolean isSaved = carList.add(car);
-        if (isSaved) {
-            car.setId(size++);
-        }
         return isSaved;
     }
 
@@ -50,7 +40,6 @@ public class CarDaoImpl implements CarDao {
         return Arrays.copyOfRange(carList.toArray(Car[]::new), start, end);
     }
 
-
     @Override
     public Car update(int id, Car carUpdate) {
         Car carToBeUpdated = get(id);
@@ -66,14 +55,19 @@ public class CarDaoImpl implements CarDao {
     @Override
     public boolean remove(int id) {
         boolean isRemoved = carList.removeIf(car -> car.getId() == id);
-        if (isRemoved) {
-            size--;
-        }
         return isRemoved;
     }
 
-
+    @Override
     public int getSize() {
-        return size;
+        return carList.size();
+    }
+
+    private void fillTestData() {
+        carList = new ArrayList<>();
+        for (int i = 0; i < CARS.length; i++) {
+            CARS[i].setId(i);
+            carList.add(CARS[i]);
+        }
     }
 }

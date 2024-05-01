@@ -11,7 +11,7 @@ public interface CarService {
 
     Car get(int id);
 
-    Car[] getSeveral(int count); // согласно задания
+    Car[] getSeveral(int count);
 
     Car update(int id, Car car);
 

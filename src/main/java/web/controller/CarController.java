@@ -8,11 +8,16 @@ import web.service.CarService;
 import web.model.Car;
 
 
+/**
+ * @Author: Yury Lapitski
+ * 2024-05-01
+ */
 @Controller
 @RequestMapping(value = "/cars")
 public class CarController {
 
-    CarService carService;
+    private CarService carService;
+
 
     @Autowired
     public CarController(CarService carService) {
@@ -20,81 +25,73 @@ public class CarController {
     }
 
 
-
-
-    @RequestMapping(value = "/", method = RequestMethod.HEAD) // HEAD - Возвращает только заголовки ответа для ресурса с указанным идентификатором, без тела ответа.
+    /* HEAD
+    Возвращает только заголовки, использую для проверки доступности ресурса.
+     */
+    @RequestMapping(method = RequestMethod.HEAD)
     public String ping() {
-        System.out.println("\nметод CarController: ping");
         return carService.ping();
     }
 
-    // РЕДАКТИРОВАТЬ   ***** ***** ***** РАБОТАЕТ ***** ***** *****
-    @GetMapping(value = "/edit/{id}") // будет возвращать страницу редактирования Car
+    /* GET
+    Возвращает страницу редактирования Car.
+    (вытаскиваем Car по его id, засовываем в модель и отправляем в html форму для редактирования)
+     */
+    @GetMapping(value = "/edit/{id}")
     public String edit(Model model, @PathVariable("id") Integer id) {
-        System.out.println("\nметод CarController: edit");
-
-        model.addAttribute("carEdit", carService.get(id));        // Берем Car с номером "id", Засовываем в модель и выплевываем в форму для редактирования
+        model.addAttribute("carEdit", carService.get(id));
         return "carPages/edit";
     }
 
-    // GET - Получает ресурс по его идентификатору.   // согласно условию задачи
+    /* GET
+    Возвращает список Car исходя из запрашиваемого количества
+     */
     @GetMapping
     public String get(@RequestParam(name = "count", required = false, defaultValue = "0") Integer count, Model model) {
-        System.out.println("\nметод CarController: get; count = " + count); // выдаю список машин в соответствии с условием
-
         model.addAttribute("arrCars", carService.getSeveral(count != null ? count : 0));
         return "carPages/index";
     }
 
-
-
-    // ***** ***** ***** РАБОТАЕТ ***** ***** *****
+    /* GET
+    Возвращает страницу с подробной информацией об интересующем Car по tего id.
+     */
     @GetMapping(value = "/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
-        System.out.println("\nметод CarController: show");
-
         model.addAttribute("showCar", carService.get(id));
         return "carPages/show";
     }
 
-
-
-
-    // ***** ***** ***** РАБОТАЕТ ***** ***** *****
+    /* GET
+    Возвращает страницу для добавления нового Car.
+     */
     @GetMapping("/new")
     public String newCar(@ModelAttribute("newCar") Car car) {
         return "carPages/new";
     }
 
-    // ***** ***** ***** РАБОТАЕТ ***** ***** *****
+    /* POST
+    Вносит новый Car в имеющуюся базу.
+     */
     @PostMapping(value = "/")
     public String add(@ModelAttribute("newCar") Car car) {
-        System.out.println("\nметод CarController: add");
-
         carService.save(car);
         return "redirect:/cars/";
     }
 
-
-
-    // принимаем объект Car ИЗ формы // через @PathVariable принимаем "id" из Car // обновляет
+    /* PATCH
+    Обновляет/ перезаписывает имеющийся Car gпо его id.
+     */
     @PatchMapping(value = "/{id}")
     public String update(@ModelAttribute("carEdit") Car car, @PathVariable("id") Integer id) {
-        System.out.println("\nCarController: update");
-
-        // теперь нужно найти Car bиз БД с таким "id" и поменять его на те значения, которые  пришли из формы
         carService.update(id, car);
         return "redirect:/cars/";
     }
 
-
-
-
-    // ***** ***** ***** РАБОТАЕТ ***** ***** *****
+    /* DELETE
+    Удаляет Car bиз базы по его id.
+     */
     @DeleteMapping(value = "/{id}")
     public String remove(@PathVariable Integer id) {
-        System.out.println("\nCarController: remove");
-
         carService.remove(id);
         return "redirect:/cars/";
     }
