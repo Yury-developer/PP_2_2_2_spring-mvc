@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>View cars</title>
+
+        <style>
+            .highlighted-text {
+                color: blue;
+                background-color: lawngreen;
+                padding: 5px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <H3>page: View cars</H3>
+        <br/> <br/>
+
+        <b class="highlighted-text" th:text="${carMessage}"> </b>
+        <br/> <br/>
+
+        <table border="3">
+            <tr>
+                <th style="width: 50px; background-color: lightcyan;">Id</th>
+                <th style="width: 350px; background-color: lightcyan;">Model</th>
+                <th style="width: 10%; background-color: lightcyan;">Series</th>
+                <th style="width: 40%; background-color: lightcyan;">Color</th>
+            </tr>
+
+            <tr th:each="car : ${carList}">
+                <td style="text-align: center;" th:utext="${car.getId()}">id</td>
+                <td th:utext="${car.getModel()}">Model</td>
+                <td style="text-align: center;" th:utext="${car.getSeries()}">Series</td>
+                <td style="text-align: center;" th:utext="${car.getColor()}">Color</td>
+            </tr>
+        </table>
+        <br/> <br/> <hr/> <br/>
+
+        <form th:method="GET" th:action="@{/cars/}">
+            <input type="submit" value="To main page / на главную страницу"/>
+        </form>
+        <br/>
+    </body>
+</html>

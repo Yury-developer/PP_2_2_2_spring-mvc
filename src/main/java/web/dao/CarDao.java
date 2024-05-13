@@ -7,15 +7,13 @@ import web.model.Car;
 @Repository
 public interface CarDao {
 
-    boolean save(Car car);
+    void save(Car car);
 
     Car get(int id);
 
-    Car[] getSeveral(int start, int end);
+    Car[] get();
 
-    Car update(int id, Car car);
+    void update(Car car);
 
-    boolean remove(int id);
-
-    int getSize();
+    void remove(int id);
 }

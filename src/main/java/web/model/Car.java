@@ -6,17 +6,12 @@ import javax.persistence.*;
 //@Table(name = "cars")
 public class Car {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id_car", updatable = false, nullable = false) // имя калонки:"id";  поле не может быть обновлено при выполнении операции обновления (UPDATE) в базе данных; не может содержать значение NULL
     private int id;
 
-//    @Column(name = "model", length = 30, nullable = false)
     private String model;
 
-//    @Column(name = "series")
     private int series;
 
-//    @Column(name = "color", length = 15)
     private String color;
 
 
@@ -26,10 +21,6 @@ public class Car {
         this.model = model;
         this.series = series;
         this.color = color;
-    }
-
-    public Car(Car car) {
-        this(car.model, car.series, car.color);
     }
 
 

@@ -33,7 +33,6 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     }
 
 
-    // Добавил я отсюда: https://github.com/NeilAlishev/SpringCourse/blob/master/Lesson23.CRUD_App3/src/main/java/ru/alishev/springcourse/config/MySpringMvcDispatcherSerlvetIntitializer.java
     @Override
     public void onStartup(ServletContext aServletContext) throws ServletException {
         super.onStartup(aServletContext);

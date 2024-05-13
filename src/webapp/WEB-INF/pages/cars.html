@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cars</title>
+
+        <style>
+            .highlighted-text {
+                color: blue;
+                background-color: lawngreen;
+                padding: 5px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <H3>page: Cars</H3>
+        <br/> <br/>
+
+        <b class="highlighted-text">Задайте количество выводимых машин (шт.):</b>
+        <br/> <br/>
+
+        <form th:action="@{/cars}" method="post">
+            <label for="count">количество:</label>
+            <input type="number" id="count" name="count" />
+            <button type="submit">Получить</button>
+        </form>
+        <br/>
+
+    </body>
+</html>

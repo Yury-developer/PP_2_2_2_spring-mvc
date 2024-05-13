@@ -5,15 +5,11 @@ import web.model.Car;
 
 public interface CarService {
 
-    String ping();
+    void save(Car car);
 
-    boolean save(Car car);
+    Car[] get(int count);
 
-    Car get(int id);
+    void update(Car car);
 
-    Car[] getSeveral(int count);
-
-    Car update(int id, Car car);
-
-    boolean remove(int id);
+    void remove(int id);
 }

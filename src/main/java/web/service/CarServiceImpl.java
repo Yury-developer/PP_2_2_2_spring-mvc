@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import web.dao.CarDao;
 import web.model.Car;
 
+import java.util.stream.IntStream;
+
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -14,38 +16,32 @@ public class CarServiceImpl implements CarService {
 
 
     @Override
-    public String ping() {
-        return "Welcome to Car Controller!";
+    public void save(Car car) {
+        carDao.save(car);
     }
 
     @Override
-    public boolean save(Car car) {
-        return carDao.save(car);
-    }
-
-    @Override
-    public Car get(int id) {
-        return carDao.get(id);
-    }
-
-    @Override
-    public Car[] getSeveral(int count) {
-        int size;
-        if (count >= 1 && count <= 4) {
-            size = Math.min(count, carDao.getSize()); // минимальное между запрошенным и реально существующим
+    public Car[] get(int count) {
+        int size = carDao.get().length;
+        Car[] cars;
+        if (count >= 1 && count <= 5) {
+            size = Math.min(size, count); // минимальное между запрошенным и реально существующим кол-вом машин
+            cars = IntStream.range(0, size)
+                    .mapToObj(i -> carDao.get()[i])
+                    .toArray(Car[]::new);
         } else {
-            size = carDao.getSize();
+            cars = carDao.get();
         }
-        return carDao.getSeveral(0, size);
+        return cars;
     }
 
     @Override
-    public Car update(int id, Car car) {
-        return carDao.update(id, car);
+    public void update(Car car) {
+        carDao.update(car);
     }
 
     @Override
-    public boolean remove(int id) {
-        return carDao.remove(id);
+    public void remove(int id) {
+        carDao.remove(id);
     }
 }

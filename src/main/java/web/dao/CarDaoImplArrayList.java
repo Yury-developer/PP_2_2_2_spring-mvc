@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import web.model.Car;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -15,15 +14,14 @@ public class CarDaoImplArrayList implements CarDao, Constants {
 
 
     public CarDaoImplArrayList() {
-        fillTestData();
+        this.carList = fillTestData();
         printCars(carList.toArray(Car[]::new));
     }
 
 
     @Override
-    public boolean save(Car car) {
-        boolean isSaved = carList.add(car);
-        return isSaved;
+    public void save(Car car) {
+        throw new UnsupportedOperationException("Метод 'save' не реализован");
     }
 
 
@@ -32,42 +30,31 @@ public class CarDaoImplArrayList implements CarDao, Constants {
         return carList.stream()
                 .filter(car -> car.getId() == id)
                 .findFirst()
-                .orElse(null); // в оригинале было findAny вместо findFirst
+                .orElse(null);
     }
 
     @Override
-    public Car[] getSeveral(int start, int end) {
-        return Arrays.copyOfRange(carList.toArray(Car[]::new), start, end);
+    public Car[] get() {
+        return carList.toArray(Car[]::new);
     }
 
     @Override
-    public Car update(int id, Car carUpdate) {
-        Car carToBeUpdated = get(id);
-        Car outdatedCar = new Car(carToBeUpdated);
-        if (carToBeUpdated != null) {
-            carToBeUpdated.setModel(carUpdate.getModel());
-            carToBeUpdated.setSeries(carUpdate.getSeries());
-            carToBeUpdated.setColor(carUpdate.getColor());
-        }
-        return outdatedCar;
+    public void update(Car carUpdate) {
+        throw new UnsupportedOperationException("Метод 'update' не реализован");
     }
 
     @Override
-    public boolean remove(int id) {
-        boolean isRemoved = carList.removeIf(car -> car.getId() == id);
-        return isRemoved;
+    public void remove(int id) {
+        throw new UnsupportedOperationException("Метод 'remove' не реализован");
     }
 
-    @Override
-    public int getSize() {
-        return carList.size();
-    }
 
-    private void fillTestData() {
-        carList = new ArrayList<>();
+    private static List<Car> fillTestData() {
+        List<Car> carList = new ArrayList<>();
         for (int i = 0; i < CARS.length; i++) {
             CARS[i].setId(i);
             carList.add(CARS[i]);
         }
+        return carList;
     }
 }
