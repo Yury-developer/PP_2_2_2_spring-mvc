@@ -28,8 +28,8 @@ public class CarController {
 
 
     @GetMapping
-    public String showInputPage() {
-        System.out.println("CarService: showInputPage");
+    public String showInputPage(Model model) {
+        model.addAttribute("size", carService.get(-1).length);
         return "cars";
     }
 
@@ -38,7 +38,6 @@ public class CarController {
         Car[] cars = carService.get(num);
         String message = "Вывожу количество машин = " + cars.length + ":";
         model.addAttribute("carMessage", message);
-        model.addAttribute("size", carService.get(-1).length);
         model.addAttribute("carList", List.of(cars));
         return "view-cars";
     }
