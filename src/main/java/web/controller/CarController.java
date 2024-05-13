@@ -27,19 +27,18 @@ public class CarController {
     }
 
 
-
     @GetMapping
     public String showInputPage() {
         System.out.println("CarService: showInputPage");
         return "cars";
     }
 
-
     @PostMapping
     public String showCarsInfoPage(@RequestParam(name = "count", required = false, defaultValue = "0") Integer num, Model model) {
         Car[] cars = carService.get(num);
         String message = "Вывожу количество машин = " + cars.length + ":";
         model.addAttribute("carMessage", message);
+        model.addAttribute("size", carService.get(-1).length);
         model.addAttribute("carList", List.of(cars));
         return "view-cars";
     }

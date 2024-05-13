@@ -22,6 +22,6 @@ public class HelloController {
 		messages.add("ru: Практическая задача 2.2.2 Java pre-project.");
 		messages.add("The task was completed by: Yury Lapitski");
 		model.addAttribute("messages", messages);
-		return "index";
+		return "hello-page";
 	}
 }
